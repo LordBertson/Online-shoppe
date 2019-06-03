@@ -65,14 +65,16 @@ try {
 <?php require './repetitive/style.html'?>
     <style>
     .container{
-                height: 100vh;
+                height: 100%;
                 width: 83.5vw;
+                box-sizing: content-box;
             }
     
 
     .row {
-        padding-top: 30px;
+        padding-top: 3vw;
         display: flex;
+        flex-wrap: nowrap;
     }
 
     /* Create two equal columns that sits next to each other */
@@ -83,6 +85,7 @@ try {
     }
     .left {
         width: 26vw;
+        padding-right:2vw;
     }
 
     .right {
@@ -106,14 +109,14 @@ try {
     }
     #button{
         background-color: #222222;
-        font-size:3vw;
+        font-size:2vw;
         height: auto;
         width: auto;
         text-align: center;
         
     }
     table{
-        width:100%;
+        width:54vw;
     }
     #priceAlign{
         text-align: right;
@@ -124,18 +127,23 @@ try {
         bottom: 0;
     }
     #desc{
-        width:57vw; 
+        width:54vw; 
         word-wrap:break-word;
+    }
+    #name{
+        font-size: 3vw;
+        text-transform: uppercase;
+        color: black;
     }
     </style>
     <?php require './repetitive/header.php'?>
     <main id="container" class="container">
     <div class="row">
         <div class="column left">
-            <h2><div align='center' class="image"><img id="item" src="<?php echo $item['image']?>" alt="item image"></div></h2>
+            <div align='center' class="image"><img id="item" src="<?php echo $item['image']?>" alt="item image"></div>
         </div>
         <div class="column right">
-        <h1><?php echo $item['name']?></h1>
+        <div id='name'><?php echo $item['name']?></div>
         <div id='desc'><?php echo $item['description']?></div>
             <div class='buttonContainer'>
             <table><tr><td>Available: <?php echo $item['quantity'] ?> pcs</td><td id='priceAlign'><h1>$<?php echo $item['price']?></h1></td></tr></table>
