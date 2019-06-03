@@ -1,0 +1,88 @@
+-- Adminer 4.7.0 MySQL dump
+
+SET NAMES utf8;
+SET time_zone = '+00:00';
+SET foreign_key_checks = 0;
+SET sql_mode = 'NO_AUTO_VALUE_ON_ZERO';
+
+DROP TABLE IF EXISTS `Items`;
+CREATE TABLE `Items` (
+  `itemID` bigint(20) NOT NULL AUTO_INCREMENT,
+  `name` varchar(500) NOT NULL,
+  `image` char(200) NOT NULL,
+  `price` int(11) NOT NULL,
+  `quantity` int(11) NOT NULL,
+  `category` varchar(50) NOT NULL,
+  `description` varchar(1500) NOT NULL,
+  `lockExpires` bigint(20) NOT NULL DEFAULT 0,
+  `editor` int(11) NOT NULL DEFAULT 0,
+  PRIMARY KEY (`itemID`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
+DROP TABLE IF EXISTS `ItemsInCarts`;
+CREATE TABLE `ItemsInCarts` (
+  `itemID` bigint(20) NOT NULL,
+  `cartID` int(11) NOT NULL,
+  `quantityAdded` int(11) NOT NULL,
+  KEY `itemID` (`itemID`),
+  KEY `cartID` (`cartID`),
+  CONSTRAINT `ItemsInCarts_ibfk_1` FOREIGN KEY (`itemID`) REFERENCES `Items` (`itemID`),
+  CONSTRAINT `ItemsInCarts_ibfk_2` FOREIGN KEY (`cartID`) REFERENCES `ShoppingCarts` (`cartID`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
+DROP TABLE IF EXISTS `OrderedItems`;
+CREATE TABLE `OrderedItems` (
+  `orderedItemID` int(11) NOT NULL AUTO_INCREMENT,
+  `orderID` int(11) NOT NULL,
+  `itemID` bigint(20) NOT NULL,
+  `priceOrd` int(11) NOT NULL,
+  `quantityOrd` int(11) NOT NULL,
+  PRIMARY KEY (`orderedItemID`),
+  KEY `orderID` (`orderID`),
+  KEY `itemID` (`itemID`),
+  CONSTRAINT `OrderedItems_ibfk_1` FOREIGN KEY (`itemID`) REFERENCES `Items` (`itemID`),
+  CONSTRAINT `OrderedItems_ibfk_2` FOREIGN KEY (`orderID`) REFERENCES `Orders` (`orderID`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
+DROP TABLE IF EXISTS `Orders`;
+CREATE TABLE `Orders` (
+  `orderID` int(11) NOT NULL AUTO_INCREMENT,
+  `userID` bigint(20) NOT NULL,
+  `name` varchar(50) NOT NULL,
+  `address` varchar(200) NOT NULL,
+  `datePlaced` datetime NOT NULL,
+  `dateRevieved` datetime DEFAULT NULL,
+  `paymentMethod` varchar(20) NOT NULL,
+  `deliveryOption` varchar(20) NOT NULL,
+  `status` varchar(20) DEFAULT NULL,
+  PRIMARY KEY (`orderID`),
+  KEY `userID` (`userID`),
+  CONSTRAINT `Orders_ibfk_1` FOREIGN KEY (`userID`) REFERENCES `Users` (`userID`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
+DROP TABLE IF EXISTS `ShoppingCarts`;
+CREATE TABLE `ShoppingCarts` (
+  `cartID` int(11) NOT NULL AUTO_INCREMENT,
+  `userID` bigint(20) NOT NULL,
+  PRIMARY KEY (`cartID`),
+  KEY `userID` (`userID`),
+  CONSTRAINT `ShoppingCarts_ibfk_1` FOREIGN KEY (`userID`) REFERENCES `Users` (`userID`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
+DROP TABLE IF EXISTS `Users`;
+CREATE TABLE `Users` (
+  `userID` bigint(20) NOT NULL AUTO_INCREMENT,
+  `email` varchar(50) NOT NULL,
+  `userName` varchar(50) NOT NULL,
+  `passwordHash` varchar(256) DEFAULT NULL,
+  `privilege` int(11) NOT NULL,
+  PRIMARY KEY (`userID`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
+-- 2019-06-03 12:52:24
