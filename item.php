@@ -68,9 +68,7 @@ try {
                 height: 100vh;
                 width: 83.5vw;
             }
-    * {
-        box-sizing: border-box;
-    }
+    
 
     .row {
         padding-top: 30px;
@@ -79,8 +77,8 @@ try {
 
     /* Create two equal columns that sits next to each other */
     .column {
-        padding: 10px;
-        height: 25.5vw;
+        padding: 0vw;
+        min-height: 30vw;
         position: relative;
     }
     .left {
@@ -88,7 +86,8 @@ try {
     }
 
     .right {
-        width: 57vw;
+        width: 55vw;
+        font-size: 1.2vw;
     }
     .image{
         height:25vw;
@@ -107,7 +106,7 @@ try {
     }
     #button{
         background-color: #222222;
-        font-size:30px;
+        font-size:3vw;
         height: auto;
         width: auto;
         text-align: center;
@@ -120,9 +119,13 @@ try {
         text-align: right;
     }
     .buttonContainer{
-        bottom: 0;
         position:absolute;
         width: 100%;
+        bottom: 0;
+    }
+    #desc{
+        width:57vw; 
+        word-wrap:break-word;
     }
     </style>
     <?php require './repetitive/header.php'?>
@@ -132,8 +135,8 @@ try {
             <h2><div align='center' class="image"><img id="item" src="<?php echo $item['image']?>" alt="item image"></div></h2>
         </div>
         <div class="column right">
-            <h1><?php echo $item['name']?></h1>
-            <?php echo $item['description']?>
+        <h1><?php echo $item['name']?></h1>
+        <div id='desc'><?php echo $item['description']?></div>
             <div class='buttonContainer'>
             <table><tr><td>Available: <?php echo $item['quantity'] ?> pcs</td><td id='priceAlign'><h1>$<?php echo $item['price']?></h1></td></tr></table>
             <a href='./item.php?id=<?php echo $item['itemID']?>&cart=true'>

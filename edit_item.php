@@ -59,6 +59,7 @@ $price='';
 $quantity='';
 $description='';
 $imgurl='';
+$lenBool=true;
 #DB #######################
 require './repetitive/dbconnect.php';
 
@@ -136,8 +137,11 @@ try {
         if(!$_POST['description']){
             $helperBool=false;
         }
+        if(strlen($description)>1500){
+            $lenBool = false;
+        }
 
-        if($helperBool and $priceBool and $quantityBool){
+        if($helperBool and $priceBool and $quantityBool and $lenBool){
             if(!isset($_SESSION['itemID'])){
                 $stmt = $link -> prepare("INSERT INTO Items (name, image, price, quantity, category, description) VALUES (?,?,?,?,?,?)");
                 $stmt->execute([$itemName,$imgurl,$price,$quantity,$category,$description]);
@@ -174,12 +178,15 @@ try {
     <?php require './repetitive/style.html'?>
     <?php require './repetitive/header.php'?>
     <main id="container" class="container">
+    <font color="red"><?php if($helperBool == false){echo "Check that all values are filled";}?></font>    
+    <font color="red"><?php if($priceBool == false){echo "Check that price is numeric";}?></font>
+    <font color="red"><?php if($quantityBool == false){echo "Check that quantity is numeric";}?></font>
+    <font color="red"><?php if($lenBool == false){echo "Description can be no longer than 1500 characters";}?></font>                       
     <h1 align='center'> Edit Items </h1>
     <div class="row justify-content-center">
         <form id="edit" class="form" method="POST" action="./edit_item.php">
             <div class="form-group">
             <div>
-            <font color="red"><?php if($helperBool == false){echo "Check that all values are filled";}?></font>    
             </div>
             <label>Name</label>
             <input class="form-control" name="itemName" value="<?php echo $itemName ?>">
@@ -193,14 +200,12 @@ try {
                 <label>Price</label>
                 <input class="form-control" name="price" value="<?php echo $price ?>">
                 <div>
-                <font color="red"><?php if($priceBool == false){echo "not a number";}?></font>
                 </div>
                 </div>
                 <div class="col">
                 <label>Quantity</label>
                 <input class="form-control" name="quantity" value="<?php echo $quantity ?>">
                 <div>
-                <font color="red"><?php if($quantityBool == false){echo "not a number";}?></font>
                 </div>
                 </div>
             </div>
@@ -210,7 +215,8 @@ try {
             </div>
             <div class="form-group">
                 <label>Description</label>
-                <textarea id="desc" class="form-control" name="description"><?php echo $description ?></textarea>
+                <textarea maxlength="500" id="desc" class="form-control" name="description"><?php echo $description ?></textarea>
+                <small id='charactersRemaining' class="text-muted">500</small>
             </div>
             <button class="btn btn-primary" type="submit">Submit</button>
         </form>
@@ -246,6 +252,19 @@ try {
     function getImage(){
         image.src = url.value;
     }
+    </script>
+    <script>
+    var el;                                                    
+
+    function countCharacters(e) {                                    
+    var textEntered, countRemaining, counter;          
+    textEntered = document.getElementById('desc').value;  
+    counter = (500 - (textEntered.length));
+    countRemaining = document.getElementById('charactersRemaining'); 
+    countRemaining.textContent = counter;      
+    }
+    el = document.getElementById('desc');                   
+    el.addEventListener('keyup', countCharacters, false);
     </script>
 </body>
 </html>

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+<?php session_start(); ?>
 <head>
     <?php require './repetitive/head.html'?>
     <?php require './repetitive/style.html'?>
@@ -16,6 +17,8 @@
         }
         td{
             color:#333333;
+            word-wrap:break-word;
+            max-width: 50vw;
         }
         th{
             color:#111111;
@@ -54,12 +57,14 @@
             color: black;
             font-size: 20px;
         }
+        #additem{
+            text-align:center;
+        }
     </style>
 <?php
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
-session_start();
 if(!isset($_SESSION['email'])) {
     header("Location: ./login.php");
 }
@@ -140,13 +145,7 @@ try {
         </tr>
         <?php } ?>
         <tr>
-            <th></th>
-            <th></th>
-            <th></th>
-            <th><a href='./edit_item.php' id='id'>+</a></th>
-            <th></th>
-            <th></th>
-            <th></th>
+            <th id='additem' colspan="7"><a href='./edit_item.php' id='id'>+</a></th>
         </tr>
     </table>
     </div>
