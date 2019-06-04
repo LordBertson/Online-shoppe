@@ -1,0 +1,13 @@
+<Files ".gitignore">  
+  order allow,deny
+  deny from all
+</Files>
+
+<Files "README.md">
+  order allow,deny
+  deny from all
+</Files>
+
+RewriteEngine On
+RewriteRule    ^/?$    shop.php    [NC,L]
+
