@@ -113,11 +113,13 @@ error_reporting(E_ALL);
     }
     .container{
                 box-sizing: content-box;
-                padding:0;
-                padding-left:19vw;
+                margin: 0vw;
+                right:50%;
+                left: 50%;
+                margin-left:17vw;
                 
                 height: 100vh;
-                width: 80vw;
+                width: 76vw;
             }
     .window{
         height: 30w;
@@ -310,7 +312,7 @@ error_reporting(E_ALL);
         <li><a href="shop.php?orderBy=descending"><i class="fa fa-caret-down" aria-hidden="true"></i></a></li>
         <?php }?>
     </ul>
-    <table>
+    <table id='content'>
     <?php
     $i=0;
     foreach($data as $item){
