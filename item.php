@@ -32,13 +32,25 @@ try {
             header("Location: ./shop.php");
         }
             if(isset($_GET['cart']) and isset($_GET['id'])){
-                if(empty($_SESSION)){
+                if(!isset($_SESSION['id'])){
                     header("Location: ./login.php");
                     exit;    
                 }
                 if($_GET['cart']=='true'){
                     $itemID = $_GET['id'];
                     $userID = $_SESSION["id"];
+                    $stmt = $link -> prepare('SELECT * FROM ShoppingCarts WHERE userID=?');
+                        $stmt -> bindParam(1, $userID);
+                        $stmt -> execute();
+                        $cart = $stmt-> fetch();
+                        if(empty($cart)){
+                            $stmt= $link->prepare('INSERT INTO ShoppingCarts (userID) VALUES (?)');
+                            $stmt->execute([$userID]);
+                            $stmt = $link -> prepare('SELECT * FROM ShoppingCarts WHERE userID=?');
+                            $stmt -> bindParam(1, $userID);
+                            $stmt -> execute();
+                            $cart = $stmt-> fetch();
+                        }
                     $stmt= $link->prepare('SELECT * FROM ItemsInCarts WHERE itemID = ? AND cartID = (SELECT cartID FROM ShoppingCarts WHERE userID=?)');
                     $stmt->execute([$itemID,$userID]);
                     $addedItem = $stmt-> fetch();

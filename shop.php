@@ -108,6 +108,9 @@ error_reporting(E_ALL);
     <?php require './repetitive/style.html'?>
     <?php require './repetitive/style-dropdown.html'?>
     <style>
+    a{
+        padding:0;
+    }
     .container{
                 box-sizing: content-box;
                 padding:0;
@@ -117,7 +120,7 @@ error_reporting(E_ALL);
                 width: 80vw;
             }
     .window{
-        height: 33vw;
+        height: 30w;
         width: 24vw;
         background-color: #909090;
         margin: 0.5vw;
