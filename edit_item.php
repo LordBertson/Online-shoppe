@@ -35,6 +35,12 @@
         #url{
             margin-top:15px;
         }
+        .radio, .radio-inline{
+            padding-top: 10px;
+            margin:0;
+            outline: 0;
+            height:auto;
+        }
     </style>
 </head>
 <body>
@@ -45,9 +51,11 @@ error_reporting(E_ALL);
 session_start();
 if(!isset($_SESSION['email'])) {
     header("Location: ./login.php");
+    exit;
 }
 if($_SESSION['privilege']!=3){
     header("Location: ./shop.php");
+    exit;
 }
 $requireConsistencyCheck = false;
 $helperBool=true;
@@ -141,11 +149,13 @@ try {
         if(strlen($description)>1500){
             $lenBool = false;
         }
+        $available = $_POST['available'];
+        echo $available;
 
         if($helperBool and $priceBool and $quantityBool and $lenBool){
             if(!isset($_SESSION['itemID'])){
-                $stmt = $link -> prepare("INSERT INTO Items (name, image, price, quantity, category, description) VALUES (?,?,?,?,?,?)");
-                $stmt->execute([$itemName,$imgurl,$price,$quantity,$category,$description]);
+                $stmt = $link -> prepare("INSERT INTO Items (name, image, price, quantity, category, description, available) VALUES (?,?,?,?,?,?,?)");
+                $stmt->execute([$itemName,$imgurl,$price,$quantity,$category,$description,$available]);
                 header("Location: ./list_items.php");
                 exit;
             }else{
@@ -159,8 +169,8 @@ try {
                         exit;
                     }
                 $itemID = $_SESSION['itemID'];
-                $stmt = $link -> prepare("UPDATE Items SET name=?, image=?, price=?, quantity=?, category=?, description=?, lockExpires=0, editor=0 WHERE itemID=?");
-                $stmt->execute([$itemName,$imgurl,$price,$quantity,$category,$description,$itemID]);
+                $stmt = $link -> prepare("UPDATE Items SET name=?, image=?, price=?, quantity=?, category=?, description=?, lockExpires=0, editor=0, available=? WHERE itemID=?");
+                $stmt->execute([$itemName,$imgurl,$price,$quantity,$category,$description,$available,$itemID]);
                 unset($_SESSION['itemID']);
                 header("Location: ./list_items.php");
                 exit;
@@ -202,6 +212,10 @@ try {
                 <label>Price</label>
                 <input class="form-control" name="price" value="<?php echo $price ?>">
                 <div>
+                Avaiable:
+                <label class="radio-inline"><input class="radio" type="radio" name="available" value="1" <?php if(isset($data)) {if($data['available']==1){echo 'checked';}}?>>yes</label>
+                <label class="radio-inline"><input class="radio" type="radio" name="available" value="0" <?php if(isset($data)) {if($data['available']==0){echo 'checked';}}?>>no</label>
+
                 </div>
                 </div>
                 <div class="col">

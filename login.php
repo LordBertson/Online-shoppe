@@ -16,6 +16,10 @@
         #submit{
             margin-bottom:35px;
         }
+
+        .form-control{
+            width: 20vw;
+        }
     </style>
 </head>
 

@@ -124,6 +124,7 @@ try {
             <th>Price</th>
             <th>Quantity</th>
             <th>Description</th>
+            <th>Availability</th>
             <th>edit</th>
         </tr>
         <?php
@@ -136,11 +137,12 @@ try {
             <td><?php echo $item['price']?></td>
             <td><?php echo $item['quantity']?></td>
             <td><?php echo $item['description']?></td>
+            <td><?php echo $item['available']?></td>
             <td><a class="lista" href="./edit_item.php?id=<?php echo $item['itemID'] ?>">edit</a></td>
         </tr>
         <?php } ?>
         <tr>
-            <th id='additem' colspan="7"><a href='./edit_item.php' id='id'>+</a></th>
+            <th id='additem' colspan="8"><a href='./edit_item.php' id='id'>NEW ITEM</a></th>
         </tr>
     </table>
     </div>

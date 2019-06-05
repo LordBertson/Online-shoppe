@@ -60,11 +60,11 @@ error_reporting(E_ALL);
                     $link->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION );
                     if(isset($_GET['category'])){
                         $category = $_GET['category'];
-                        $stmt = $link -> prepare('SELECT name FROM Items WHERE category = ?');
+                        $stmt = $link -> prepare('SELECT name FROM Items WHERE category = ? AND available=1');
                         $stmt -> execute([$category]);
                         $items = $stmt-> fetchAll();
                     }else{
-                        $stmt = $link -> prepare('SELECT name FROM Items');
+                        $stmt = $link -> prepare('SELECT name FROM Items WHERE available = 1');
                         $stmt -> execute();
                         $items = $stmt-> fetchAll();
                     }
@@ -211,32 +211,32 @@ error_reporting(E_ALL);
                     $category = $_GET['category'];
                     $orderBy = $_GET['orderBy'];
                     if($orderBy == 'descending'){
-                        $stmt = $link -> prepare('SELECT * FROM Items WHERE category = ? ORDER BY price DESC, itemID DESC LIMIT '.$toshow.',9');
+                        $stmt = $link -> prepare('SELECT * FROM Items WHERE category = ? AND available=1 ORDER BY price DESC, itemID DESC LIMIT '.$toshow.',9');
                         $stmt -> execute([$category]);
                         $data = $stmt-> fetchAll();
                     } else if($orderBy == 'ascending'){
-                        $stmt = $link -> prepare('SELECT * FROM Items WHERE category = ? ORDER BY price ASC, itemID DESC LIMIT '.$toshow.',9');
+                        $stmt = $link -> prepare('SELECT * FROM Items WHERE category = ? AND available=1 ORDER BY price ASC, itemID DESC LIMIT '.$toshow.',9');
                         $stmt -> execute([$category]);
                         $data = $stmt-> fetchAll();    
                     }
                 } else if(isset($_GET['category']) and !isset($_GET['orderBy'])){
                     $category = $_GET['category'];
-                    $stmt = $link -> prepare('SELECT * FROM Items WHERE category = ? ORDER BY itemID DESC LIMIT '.$toshow.',9');
+                    $stmt = $link -> prepare('SELECT * FROM Items WHERE category = ? AND available=1 ORDER BY itemID DESC LIMIT '.$toshow.',9');
                     $stmt -> execute([$category]);
                     $data = $stmt-> fetchAll();
                 } else if(!isset($_GET['category']) and isset($_GET['orderBy'])){
                     $orderBy = $_GET['orderBy'];
                     if($orderBy == 'descending'){
-                        $stmt = $link -> prepare('SELECT * FROM Items ORDER BY price DESC, itemID DESC LIMIT '.$toshow.',9');
+                        $stmt = $link -> prepare('SELECT * FROM Items WHERE available=1 ORDER BY price DESC, itemID DESC LIMIT '.$toshow.',9');
                         $stmt -> execute();
                         $data = $stmt-> fetchAll();
                     } else if($orderBy == 'ascending'){
-                        $stmt = $link -> prepare('SELECT * FROM Items ORDER BY price ASC, itemID DESC LIMIT '.$toshow.',9');
+                        $stmt = $link -> prepare('SELECT * FROM Items WHERE available=1 ORDER BY price ASC, itemID DESC LIMIT '.$toshow.',9');
                         $stmt -> execute();
                         $data = $stmt-> fetchAll();    
                     }
                 } else {
-                    $stmt = $link -> prepare('SELECT * FROM Items ORDER BY itemID DESC LIMIT '.$toshow.',9');
+                    $stmt = $link -> prepare('SELECT * FROM Items WHERE available=1 ORDER BY itemID DESC LIMIT '.$toshow.',9');
                     $stmt -> execute([(int)$toshow]);
                     $data = $stmt-> fetchAll();
                 }
@@ -279,7 +279,7 @@ error_reporting(E_ALL);
             <?php
             if(isset($_SESSION['email'])){
                 $userID = $_SESSION['id'];
-                $stmt= $link->prepare('SELECT userID, quantityAdded, name FROM (SELECT userID, itemID, quantityAdded FROM ShoppingCarts  JOIN ItemsInCarts ON ShoppingCarts.cartID = ItemsInCarts.cartID) AS A JOIN Items ON A.itemID = Items.itemID WHERE userID = ?');
+                $stmt= $link->prepare('SELECT userID, quantityAdded, name FROM (SELECT userID, itemID, quantityAdded FROM ShoppingCarts  JOIN ItemsInCarts ON ShoppingCarts.cartID = ItemsInCarts.cartID) AS A JOIN Items ON A.itemID = Items.itemID WHERE userID = ? AND available=1');
                 $stmt->execute([$userID]);
                 $cart = $stmt-> fetchAll();
                 foreach($cart as $item){
