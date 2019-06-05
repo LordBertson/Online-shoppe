@@ -2,10 +2,8 @@
 <html lang="en">
 <head>
     <?php require './repetitive/head.html'?>
+    <?php require './repetitive/style.html'?>
     <title>KuchINÉ - Shopping Cart</title>
-</head>
-<body>
-<?php require './repetitive/style.html'?>
     <style>
     .container{
                 height: 100vh;
@@ -18,7 +16,9 @@
     }
     table{
         border: 2px solid #333333;
-        width: 70vw
+        width: 100%;
+        padding-right: 15vw;
+        padding-left: 15vw;
     }
     button{
         width: 70vw;
@@ -46,6 +46,8 @@
         margin-left: 6vw;
     }
     </style>
+</head>
+<body>
 <?php
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
@@ -94,8 +96,8 @@ try {
 ?>
     <?php require './repetitive/header.php'?>
     <main id="container" class="container">
-        <h1 align='center'>Order</h1>
-        <table align='center'>
+        <h1>Completed order</h1>
+        <table>
         <tr>
             <th>Name</th>
             <th>Quantity</th>
@@ -129,7 +131,7 @@ try {
         </tr>
         </table>
         <br>
-        <table align='center'>
+        <table>
             <tr>
                 <th>Recipient</th>
                 <th></th>

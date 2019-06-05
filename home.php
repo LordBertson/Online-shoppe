@@ -2,10 +2,8 @@
 <html lang="en">
 <head>
     <?php require './repetitive/head.html'?>
+    <?php require './repetitive/style.html'?>
     <title>KuchINÉ - Shopping Cart</title>
-</head>
-<body>
-<?php require './repetitive/style.html'?>
     <style>
     .container{
                 height: 100vh;
@@ -18,10 +16,11 @@
     }
     table{
         border: 2px solid #333333;
-        width: 70vw
+        width: 100%;
+
     }
     button{
-        width: 70vw;
+        width: 100%;
     }
     td{
         color:#333333;
@@ -46,6 +45,8 @@
         margin-left: 6vw;
     }
     </style>
+</head>
+<body>
 <?php
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
@@ -103,9 +104,9 @@ try {
     <?php require './repetitive/header.php'?>
     <main id="container" class="container">
     <?php if(!empty($cart)){ ?>
-        <h1 align='center'>Shopping Cart</h1>
-        <form align='center' id="form" class="form-signup" style="width:auto" method="POST" action="./home.php">
-        <table align='center'>
+        <h1>Shopping Cart</h1>
+        <form id="form" class="form-signup" style="width:auto" method="POST" action="./home.php">
+        <table>
         <tr>
             <th>Name</th>
             <th>Quantity</th>
@@ -125,7 +126,7 @@ try {
         <button class="btn btn-primary" type="submit">TO ORDER COMPLETION</button>
         </form>
     <?php }else{ ?>
-        <h2>Your cart is empty!<h2>
+        <h2>Your cart is empty!</h2>
     <?php } ?>
     </main>
     <footer></footer>

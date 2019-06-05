@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <?php require './repetitive/head.html'?>
+    <?php require './repetitive/style.html'?>
     <title>KuchINÉ - Registration</title>
 </head>
 <body>
@@ -107,11 +108,10 @@
 
 
     ?>
-    <?php require './repetitive/style.html'?>
     <?php require './repetitive/header2.html'?>
     <main class="container">
     <br>
-    <h1 align='center'> Registration form </h1>
+    <h1> Registration form </h1>
     <div class="row justify-content-center">
         <form id="form" class="form-signup" style="width:220px" method="POST" action="./formular.php">
             <div class="form-group">
@@ -120,7 +120,7 @@
                 <small class="text-muted">Example: John Smith
                 </small>
                 <div>
-                <font color="red"><?php if($namebool == false){echo $errname;}?></font>
+                <div class="error"><?php if($namebool == false){echo $errname;}?></div>
                 </div>
             </div>
             <div class="form-group">
@@ -128,7 +128,7 @@
                 <input class="form-control" name="email" value="<?php echo $email; ?>">
                 <small class="text-muted">Example: name@mailprovider.com</small>
                 <div>
-                <font color="red"><?php if($mailbool == false){echo $erremail;}elseif($duplicatebool == false){echo $errduplicate;}?></font>
+                <div class="error"><?php if($mailbool == false){echo $erremail;}elseif($duplicatebool == false){echo $errduplicate;}?></div>
                 </div>
             </div>
             <div class="form-group">
@@ -136,23 +136,23 @@
                 <input class="form-control" name="phone" value="<?php echo $phoneno; ?>">
                 <small class="text-muted">Format: +421 123 456 789</small>
                 <div>
-                <font color="red"><?php if($phonebool == false){echo $errphone;}?></font>
+                <div class="error"><?php if($phonebool == false){echo $errphone;}?></div>
                 </div>
             </div>
             <div class="form-group">
                 <label>Password*</label>
-                <input class="form-control" input type="password" name="password1" value="">
+                <input class="form-control" type="password" name="password1" value="">
                 <small class="text-muted">Enter a strong password.</small>
                 <div>
-                <font color="red"><?php if($pass1bool == false){echo $errpass1;}?></font>
+                <div class="error"><?php if($pass1bool == false){echo $errpass1;}?></div>
                 </div>
             </div>
             <div class="form-group">
                 <label>Password again*</label>
-                <input class="form-control" input type="password" name="password2" value="">
+                <input class="form-control" type="password" name="password2" value="">
                 <small class="text-muted">Repeat password.</small>
                 <div>
-                <font color="red"><?php if($pass2bool == false){echo $errpass2;}?></font>
+                <div class="error"><?php if($pass2bool == false){echo $errpass2;}?></div>
                 </div>
             </div>
             <button class="btn btn-primary" type="submit">Submit</button>

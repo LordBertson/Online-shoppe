@@ -107,7 +107,6 @@ error_reporting(E_ALL);
     <title>KuchINÉ - Login</title>
     <?php require './repetitive/style.html'?>
     <?php require './repetitive/style-dropdown.html'?>
-</head>
     <style>
     .container{
                 box-sizing: content-box;
@@ -117,8 +116,8 @@ error_reporting(E_ALL);
                 height: 100vh;
                 width: 80vw;
             }
-    #window{
-        height: 30vw;
+    .window{
+        height: 33vw;
         width: 24vw;
         background-color: #909090;
         margin: 0.5vw;
@@ -129,7 +128,7 @@ error_reporting(E_ALL);
         width: 22vw;
         background-color: white;
     }
-    #item{
+    .item{
         position: relative;
         top: 50%;
         transform: translateY(-50%);
@@ -138,23 +137,26 @@ error_reporting(E_ALL);
         max-width: 100%;
         max-height: 100%;
     }
-    #itemInfo{
+    .itemInfo{
         width:21vw;
         margin-left:1vw;
         height: 7vw;
     }
-    #itemName{
+    .itemName{
         color: black;
         font-size:1.2vw;
+        text-align: left;
     }
-    #itemPrice{
+    .itemPrice{
         color: white;
         font-size:1.7vw;
+        text-align:left;
     }
-    #cartButton{
+    .cartButton{
         color:white;
         font-size:1.7vw;
         width:2vw;
+        text-align:right;
     }
     li {
         display: inline;
@@ -182,6 +184,7 @@ error_reporting(E_ALL);
         text-decoration: underline;
     }
     </style>
+</head>
     <body>
     <?php
     #DB #######################
@@ -313,26 +316,26 @@ error_reporting(E_ALL);
         }
             echo "<td>";
             ?>
+            <div class="window">
             <a href='./item.php?id=<?php echo $item['itemID']?>'>
-            <div id="window">
                 <div class="image">
-                <img id="item" src="<?php echo $item['image']?>" alt="item image">
+                <img class="item" src="<?php echo $item['image']?>" alt="item image">
                 </div>
-                <table id="itemInfo">
+            </a>
+                <table class="itemInfo">
                     <tr>
-                        <td align="left" id="itemName"><?php echo $item['name']?></td>
+                        <td colspan="2"  class="itemName"><?php echo $item['name']?></td>
+                    </tr>
                     <tr>
-                    <tr>
-                        <td align="left" id="itemPrice">$<?php echo $item['price']?></td>
+                        <td  class="itemPrice">$<?php echo $item['price']?></td>
                         <?php if($url == './shop.php'){?>
-                        <td align="right"><div id="cartButton"><a href="./shop.php<?php echo '?item='.$item['itemID']?>"><i class="fas fa-cart-plus"></i></a></div></td>
+                        <td class="cartButton"><div><a href="./shop.php<?php echo '?item='.$item['itemID']?>"><i class="fas fa-cart-plus"></i></a></div></td>
                         <?php }else{ ?>
-                        <td align="right"><div id="cartButton"><a href="<?php echo $url ?><?php echo '&item='.$item['itemID']?>"><i class="fas fa-cart-plus"></i></a></div></td>
+                        <td class="cartButton" ><div><a href="<?php echo $url ?><?php echo '&item='.$item['itemID']?>"><i class="fas fa-cart-plus"></i></a></div></td>
                         <?php }?>
                     </tr>
                 </table>
             </div>
-            </a>
             <?php
             echo "</td>";
         if($i%3 == 2){
@@ -344,7 +347,7 @@ error_reporting(E_ALL);
     </table>
     <ul id='pages'>
         <?php for($x=1;$x<=$lastpage;$x++){ ?>
-            <li <?php if($x==$page){echo 'id=\'under\'';} ?>><a href=<?php if($urlp=='./shop.php'){echo $urlp.'?page='.$x;}else{echo $urlp.'&page='.$x;}?>><?php echo $x ?></li>
+            <li <?php if($x==$page){echo 'id=\'under\'';} ?>><a href=<?php if($urlp=='./shop.php'){echo $urlp.'?page='.$x;}else{echo $urlp.'&page='.$x;}?>><?php echo $x ?></a></li>
         <?php } ?>
     </ul>
     </main>

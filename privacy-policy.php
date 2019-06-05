@@ -9,9 +9,7 @@ error_reporting(E_ALL);
 <head>
     <?php require './repetitive/head.html'?>
     <title>KuchINÉ - Shopping Cart</title>
-</head>
-<body>
-<?php require './repetitive/style.html'?>
+    <?php require './repetitive/style.html'?>
     <style>
     .container{
                 margin-top: 20px;
@@ -23,6 +21,9 @@ error_reporting(E_ALL);
         box-sizing: border-box;
     }
     </style>
+</head>
+<body>
+    
     <?php require './repetitive/header.php'?>
     <main id="container" class="container">
             <h1>Privacy Policy</h1>

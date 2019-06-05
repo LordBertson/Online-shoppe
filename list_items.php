@@ -4,11 +4,9 @@
 <head>
     <?php require './repetitive/head.html'?>
     <?php require './repetitive/style.html'?>
-    <title>KuchINÉ - Shopping Cart</title>
-</head>
-<body>
+    <title>KuchINÉ - Edit Items</title>
     <style>
-        #lista{
+        .lista{
             color:blue;
         }
         th,td{
@@ -22,11 +20,6 @@
         }
         th{
             color:#111111;
-        }
-
-        
-        h1{
-            padding-top:20px;
         }
         #image{
             margin-top:27px;
@@ -45,7 +38,7 @@
         .container{
                 height: 100vh;
                 width: 82.5vw;
-                align:center;
+                text-align:center;
             }
         #edit, #image{
             display:inline-block;
@@ -61,6 +54,8 @@
             text-align:center;
         }
     </style>
+</head>
+<body>
 <?php
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
@@ -119,7 +114,7 @@ try {
         }
     }
     ?>
-    <h1 align='center'> Items </h1>
+    <h1> Items </h1>
     <div class="row justify-content-center">
     <table>
         <tr>
@@ -141,7 +136,7 @@ try {
             <td><?php echo $item['price']?></td>
             <td><?php echo $item['quantity']?></td>
             <td><?php echo $item['description']?></td>
-            <td><a id="lista" href="./edit_item.php?id=<?php echo $item['itemID'] ?>">edit</a></td>
+            <td><a class="lista" href="./edit_item.php?id=<?php echo $item['itemID'] ?>">edit</a></td>
         </tr>
         <?php } ?>
         <tr>

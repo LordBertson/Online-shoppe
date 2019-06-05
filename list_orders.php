@@ -99,10 +99,11 @@ try {
     <?php require './repetitive/head.html'?>
     <?php require './repetitive/style.html'?>
     <title>KuchINÉ - Shopping Cart</title>
-</head>
-<body>
     <style>
-        #lista a{
+        .lista{
+            text-align:right;
+        }
+        .lista a{
             color:blue;
         }
         th,td{
@@ -118,6 +119,7 @@ try {
             background-color: #888888;
         }
         table{
+            text-align:left;
             width: 100%;
             margin-bottom: 50px;
         }
@@ -143,7 +145,7 @@ try {
         .container{
                 height: 100vh;
                 width: 82.5vw;
-                align:center;
+                text-align:center;
             }
         #edit, #image{
             display:inline-block;
@@ -156,6 +158,8 @@ try {
             font-size: 20px;
         }
     </style>
+</head>
+<body>
 <?php
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
@@ -184,12 +188,12 @@ $imgurl='';
         }
     }
     ?>
-    <h1 align='center'> Items </h1>
+    <h1> Items </h1>
     <div class="row justify-content-center">
     <?php
         foreach($orders as $order){ 
     ?>
-    <div id='lista' align='right'><a href='./list_orders.php?accept=<?php echo $order['orderID']?>''>accept</a>/<a href='./list_orders.php?decline=<?php echo $order['orderID']?>'>decline</a><div>
+    <div class='lista'><a href='./list_orders.php?accept=<?php echo $order['orderID']?>'>accept</a>/<a href='./list_orders.php?decline=<?php echo $order['orderID']?>'>decline</a></div>
     <table>
         <tr>
             <th>ID</th>

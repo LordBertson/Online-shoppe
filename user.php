@@ -3,8 +3,7 @@
 <head>
     <?php require './repetitive/head.html'?>
     <title>KuchINÉ - Shopping Cart</title>
-</head>
-<body>
+    <?php require './repetitive/style.html'?>
     <style>
         h1{
             padding-top:20px;
@@ -15,7 +14,12 @@
             max-width:20vw;
             min-width:20vw;
         }
+        .container{
+            height: 100vh;
+        }
     </style>
+</head>
+<body>
 <?php
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
@@ -106,12 +110,12 @@ try {
         }
     }
 ?>
-    <?php require './repetitive/style.html'?>
     <?php require './repetitive/header.php'?>
     <main id="container" class="container">
-    <font color="red"><?php if($namebool == false){echo 'Error: Name must only contain alphanumeric characters and spaces!<br>';}?></font>
-    <font color="red"><?php if($mailbool1 == false){echo 'Error: Not a valid email!<br>';}elseif($mailbool2 == false){echo 'Error: User with this email is already registered!<br>';}?></font>
-    <font color="red"><?php if($passbool == false){echo 'Error: Passwords do not match!<br>';}?></font>
+    <div class='error'>
+    <?php if($namebool == false){echo 'Error: Name must only contain alphanumeric characters and spaces!<br>';}?>
+    <?php if($mailbool1 == false){echo 'Error: Not a valid email!<br>';}elseif($mailbool2 == false){echo 'Error: User with this email is already registered!<br>';}?>
+    <?php if($passbool == false){echo 'Error: Passwords do not match!<br>';}?></div>
     <h1 align='center'> Profile </h1>
     <div class="row justify-content-center">
         <form id="edit" class="form" method="POST" action="./user.php">

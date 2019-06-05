@@ -3,8 +3,7 @@
 <head>
     <?php require './repetitive/head.html'?>
     <title>KuchINÉ - Shopping Cart</title>
-</head>
-<body>
+    <?php require './repetitive/style.html'?>
     <style>
         h1{
             padding-top:20px;
@@ -28,7 +27,7 @@
         .container{
                 height: 100vh;
                 width: 82.5vw;
-                align:center;
+                text-align:center;
             }
         #edit, #image{
             display:inline-block;
@@ -37,6 +36,8 @@
             margin-top:15px;
         }
     </style>
+</head>
+<body>
 <?php
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
@@ -175,14 +176,15 @@ try {
 
 
 ?>
-    <?php require './repetitive/style.html'?>
     <?php require './repetitive/header.php'?>
     <main id="container" class="container">
-    <font color="red"><?php if($helperBool == false){echo "Check that all values are filled";}?></font>    
-    <font color="red"><?php if($priceBool == false){echo "Check that price is numeric";}?></font>
-    <font color="red"><?php if($quantityBool == false){echo "Check that quantity is numeric";}?></font>
-    <font color="red"><?php if($lenBool == false){echo "Description can be no longer than 1500 characters";}?></font>                       
-    <h1 align='center'> Edit Items </h1>
+    <div class='error'>
+    <?php if($helperBool == false){echo "Check that all values are filled";}?>   
+    <?php if($priceBool == false){echo "Check that price is numeric";}?>
+    <?php if($quantityBool == false){echo "Check that quantity is numeric";}?>
+    <?php if($lenBool == false){echo "Description can be no longer than 1500 characters";}?>                   
+    </div>
+    <h1> Edit Items </h1>
     <div class="row justify-content-center">
         <form id="edit" class="form" method="POST" action="./edit_item.php">
             <div class="form-group">
@@ -220,7 +222,7 @@ try {
             </div>
             <button class="btn btn-primary" type="submit">Submit</button>
         </form>
-        <img id="image" src="<?php if($_POST['imgurl']){echo $imgurl;}else{echo 'imgs/icon.png';}?>" onerror="this.src='./imgs/icon.png';" alt="item" />
+        <img id="image" src="<?php if($_POST['imgurl']){echo $imgurl;}else{echo './imgs/icon.png';}?>" onerror="this.src='./imgs/icon.png';" alt="item" />
 </div>
     </main>
     <footer></footer>

@@ -2,7 +2,7 @@
 <div id="header" class="header">
     <div class="crop">
         <img src="./imgs/top-bar.jpg" alt="top">
-        <a id="top" href="./shop.php" class="centered">KuchINÉ</div>
+        <a id="top" href="./shop.php" class="centered">KuchINÉ</a>
     </div>
 </div>
 

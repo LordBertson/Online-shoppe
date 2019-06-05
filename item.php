@@ -60,9 +60,7 @@ try {
 <head>
     <?php require './repetitive/head.html'?>
     <title>KuchINÉ - Shopping Cart</title>
-</head>
-<body>
-<?php require './repetitive/style.html'?>
+    <?php require './repetitive/style.html'?>
     <style>
     .container{
                 height: 100%;
@@ -136,11 +134,13 @@ try {
         color: black;
     }
     </style>
+</head>
+<body>
     <?php require './repetitive/header.php'?>
     <main id="container" class="container">
     <div class="row">
         <div class="column left">
-            <div align='center' class="image"><img id="item" src="<?php echo $item['image']?>" alt="item image"></div>
+            <div class="image"><img id="item" src="<?php echo $item['image']?>" alt="item image"></div>
         </div>
         <div class="column right">
         <div id='name'><?php echo $item['name']?></div>
