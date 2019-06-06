@@ -30,7 +30,6 @@
         color:#111111;
         background-color: grey;
     }
-
     
     h1,h2{
         padding-top:20px;
@@ -42,7 +41,9 @@
     input{
         height:20px;
         outline: 1px #c0c0c0 solid;
-        margin-left: 6vw;
+    }
+    .fa-times{
+        color:red;
     }
     </style>
 </head>
@@ -73,7 +74,13 @@ try {
         printf("<br />");
     }else{
         $userID = $_SESSION["id"];
-
+        if(isset($_GET['remove_item'])){
+            $itemToRemove = $_GET['remove_item'];
+            $stmt = $link -> prepare("DELETE FROM ItemsInCarts WHERE itemID=? AND cartID=(SELECT cartID FROM ShoppingCarts WHERE userID=?)");
+            $stmt->execute([$itemToRemove,$userID]);
+            header("Location: ./home.php");
+            exit;
+        }
         if(!empty($_POST)){
             $i=0;
             $j=0;
@@ -111,14 +118,16 @@ try {
             <th>Name</th>
             <th>Quantity</th>
             <th>Per Piece</th>
+            <th></th>
         </tr>
         <?php
         foreach($cart as $item){ 
         ?>
                         <tr id='<?php echo $item['itemID'] ?>'>
                             <td><?php echo $item['name']?></td>
-                            <td><input class="form-control" name="<?php echo $item['itemID'] ?>" value="<?php echo $item['quantityAdded']?>"></td>
+                            <td id='Q'><input class="form-control" name="<?php echo $item['itemID'] ?>" value="<?php echo $item['quantityAdded']?>"></td>
                             <td id='price<?php echo $item['itemID'] ?>'>$<?php echo $item['price']?></td>
+                            <td><a href='./home.php?remove_item=<?php echo $item['itemID']?>'><i class="fas fa-times"></i></a></td>
                         </tr>
         <?php 
         } ?>
