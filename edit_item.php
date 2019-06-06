@@ -3,18 +3,27 @@
 <head>
     <?php require './repetitive/head.html'?>
     <title>KuchINÉ - Shopping Cart</title>
-    <?php require './repetitive/style.html'?>
+    <?php require './repetitive/style.html';
+    session_start();?>
     <style>
         h1{
             padding-top:20px;
         }
-        #image{
-            margin-top:27px;
-            height:auto;
-            width: 400px;
-            max-height:400px;
-            max-width: 400px;
-            outline: 2px #c0c0c0 solid;
+        .image{
+        margin-top: 2vw;
+        height:30vw;
+        width: 30vw;
+        background-color: white;
+        outline: 2px #c0c0c0 solid;
+        }
+        .item{
+            position: relative;
+            top: 50%;
+            transform: translateY(-50%);
+            width: auto;
+            height: auto;
+            max-width: 100%;
+            max-height: 100%;
         }
         #edit{
             padding-bottom:20px;
@@ -48,7 +57,6 @@
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
-session_start();
 if(!isset($_SESSION['email'])) {
     header("Location: ./login.php");
     exit;
@@ -236,7 +244,9 @@ try {
             </div>
             <button class="btn btn-primary" type="submit">Submit</button>
         </form>
-        <img id="image" src="<?php if($_POST['imgurl']){echo $imgurl;}else{echo './imgs/icon.png';}?>" onerror="this.src='./imgs/icon.png';" alt="item" />
+        <div class="image">
+        <img class="item" id='image' src="<?php if($_POST['imgurl']){echo $imgurl;}else{echo './imgs/icon.png';}?>" onerror="this.src='./imgs/icon.png';" alt="item" />
+        </div>
 </div>
     </main>
     <footer></footer>
@@ -263,6 +273,9 @@ try {
     }
     </script>
     <script>
+    window.onload = function() {
+        getImage();
+    };
     var image = document.getElementById("image");
     var url = document.getElementById("imgurl");
     function getImage(){
